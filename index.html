@@ -1,0 +1,138 @@
+<!DOCTYPE html>    
+<head>
+    <meta charset="utf-8">
+    <title>fabric.js-simple text display</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	
+	<!-- Get version 1.1.0 of Fabric.js from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/2.3.6/fabric.js" ></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+ 
+	<!-- Get the highest 1.X version of jQuery from CDN. Required for ready() function. -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>  -->
+    <style>
+        .menu {
+            height: 70px;
+            background: #dcdcdc;
+            border: 1px;
+            border-radius: 15px;
+            margin: 20px;
+        }
+        .left-menu {
+            background: #dcdcdc;
+            height: 650px;
+        }
+        .hidecontrols {
+            display:none;
+        }
+    </style>
+</head>
+<body>
+		<!-- A canvas tag is required or 
+             Fabric.js doesn't know where to draw. -->
+        <div class="menu">
+            <div id="topcontainer" class="container topcontainer">
+                <div id="imagecontrols" class="imagecontrols hidecontrols">
+                    <div class="row">
+                        <button type="button" class="btn btn-link" onclick="canvas.remove(canvas.getActiveObject());"><i class="far fa-trash-alt fa-3x"></i></button>
+                    </div>
+                </div>
+                <div id="textcontrols" class="textcontrols hidecontrols">
+                    <div class="row">
+                        <button type="button" class="btn btn-link" onclick="canvas.remove(canvas.getActiveObject());"><i class="far fa-trash-alt fa-3x"></i></button>
+                        <button type="button" class="btn btn-link" onclick="canvas.set(canvas.getActiveObject().set('fontSize', '50'));"><i class="fas fa-font fa-3x"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="canvascontainer" class="container canvascontainer">
+            <div class="row">
+                <div class="left-menu col-4">
+                    <button type="button" class="btn btn-primary btn-block" onclick="addText('Hello World!')">Add text</button>
+                    <button type="button" class="btn btn-primary btn-block" onclick="addImage('assets/images/image.png')">Add image</button>
+                    <button type="button" class="btn btn-primary btn-block" onclick=activeCanvasElement()>Active Element</button>
+                </div>
+                <div class="col-8">
+                    <canvas id="c" style="border:1px solid black;" ></canvas>
+                </div>
+                
+            </div>
+        </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+ 
+<script>
+    
+	// Place script tags at the bottom of the page.
+	// That way progressive page rendering and 
+	// downloads are not blocked.
+ 
+	// Run only when HTML is loaded and 
+	// DOM properly initialized (courtesy jquery)
+
+		
+    // Obtain a canvas drawing surface from fabric.js
+    var imagecontrols = document.getElementById("imagecontrols");
+    var textcontrols = document.getElementById("textcontrols");
+    
+    var canvas = new fabric.Canvas('c');
+    canvas. preserveObjectStacking = true;
+    canvas.setHeight(650);
+    canvas.setWidth(650);	
+
+    var selectionChanged = function(event){
+        
+        if (canvas.getActiveObject().get('type') == 'textbox'){
+            imagecontrols.classList.add('hidecontrols');
+            textcontrols.classList.remove('hidecontrols');
+        }
+        if (canvas.getActiveObject().get('type') == 'image'){
+            textcontrols.classList.add('hidecontrols');
+            imagecontrols.classList.remove('hidecontrols');
+        }
+    };
+
+    var selectionCleared = function(event){
+        imagecontrols.classList.add('hidecontrols');
+        textcontrols.classList.add('hidecontrols');
+    }
+
+    canvas.on({
+        'selection:created': selectionChanged,
+        'selection:updated': selectionChanged,
+        'selection:cleared': selectionCleared
+    });	
+
+
+    function addText(text){
+		var hi = new fabric.Textbox(text, {
+            width: 230,
+			left: canvas.getWidth() / 2,
+			top: canvas.getHeight() / 2,
+            	
+		});
+	
+		// Attach it to the canvas object, then (re)display
+		// the canvas.	
+		canvas.add(hi);
+    }
+
+    function addImage(imagePath){
+        fabric.Image.fromURL(imagePath, function(oImg) {
+        canvas.add(oImg);
+    });
+    }
+
+    function activeCanvasElement(){
+        console.log(canvas.getActiveObject().get('type'));
+    }
+
+</script>
+		
+
+ 
+ 
+</html>
