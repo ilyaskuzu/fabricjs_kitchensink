@@ -42,7 +42,7 @@ function getActiveStyle(styleName, object) {
   function addAccessors($scope) {
   
     var pattern = new fabric.Pattern({
-      source: '/assets/ladybug.png',
+      source: '../assets/ladybug.png',
       repeat: 'repeat'
     });
   

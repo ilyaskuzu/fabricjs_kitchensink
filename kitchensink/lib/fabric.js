@@ -6877,13 +6877,13 @@ fabric.ElementsParser = function(elements, callback, options, reviver, parsingOp
      * @chainable
      * @see {@link http://jsfiddle.net/djnr8o7a/28/|jsFiddle demo}
      * @example <caption>Normal backgroundImage with left/top = 0</caption>
-     * canvas.setBackgroundImage('http://fabricjs.com/assets/honey_im_subtle.png', canvas.renderAll.bind(canvas), {
+     * canvas.setBackgroundImage('./assets/honey_im_subtle.png', canvas.renderAll.bind(canvas), {
      *   // Needed to position backgroundImage at 0/0
      *   originX: 'left',
      *   originY: 'top'
      * });
      * @example <caption>backgroundImage with different properties</caption>
-     * canvas.setBackgroundImage('http://fabricjs.com/assets/honey_im_subtle.png', canvas.renderAll.bind(canvas), {
+     * canvas.setBackgroundImage('./assets/honey_im_subtle.png', canvas.renderAll.bind(canvas), {
      *   opacity: 0.5,
      *   angle: 45,
      *   left: 400,
@@ -6892,12 +6892,12 @@ fabric.ElementsParser = function(elements, callback, options, reviver, parsingOp
      *   originY: 'top'
      * });
      * @example <caption>Stretched backgroundImage #1 - width/height correspond to canvas width/height</caption>
-     * fabric.Image.fromURL('http://fabricjs.com/assets/honey_im_subtle.png', function(img) {
+     * fabric.Image.fromURL('./assets/honey_im_subtle.png', function(img) {
      *    img.set({width: canvas.width, height: canvas.height, originX: 'left', originY: 'top'});
      *    canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
      * });
      * @example <caption>Stretched backgroundImage #2 - width/height correspond to canvas width/height</caption>
-     * canvas.setBackgroundImage('http://fabricjs.com/assets/honey_im_subtle.png', canvas.renderAll.bind(canvas), {
+     * canvas.setBackgroundImage('./assets/honey_im_subtle.png', canvas.renderAll.bind(canvas), {
      *   width: canvas.width,
      *   height: canvas.height,
      *   // Needed to position backgroundImage at 0/0
@@ -6905,7 +6905,7 @@ fabric.ElementsParser = function(elements, callback, options, reviver, parsingOp
      *   originY: 'top'
      * });
      * @example <caption>backgroundImage loaded from cross-origin</caption>
-     * canvas.setBackgroundImage('http://fabricjs.com/assets/honey_im_subtle.png', canvas.renderAll.bind(canvas), {
+     * canvas.setBackgroundImage('./assets/honey_im_subtle.png', canvas.renderAll.bind(canvas), {
      *   opacity: 0.5,
      *   angle: 45,
      *   left: 400,
